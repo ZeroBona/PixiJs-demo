@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="WQ">
+    <title>PixiJS-demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: lightskyblue;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+<script type="text/javascript">
+    var app = new PIXI.Application({
+        width: 1050,
+        height: 910,
+        antialias: true,
+        transparent: false,
+        backgroundColor: 200000000,
+        resolution: 1
+    })
+
+    var cat1
+    var cat2
+    var cat3
+    var cat4
+    var cat5
+
+    //Add the canvas that Pixi automatically created for you to the HTML document
+    document.body.appendChild(app.view)
+
+    //load an image and run the `setup` function when it's done
+    PIXI.loader
+        .add("./logo.jpg")
+        .load(setup)
+
+    //This `setup` function will run when the image has loaded
+    function setup() {
+        cat1 = new PIXI.Sprite(PIXI.loader.resources["./logo.jpg"].texture)
+        cat2 = new PIXI.Sprite(PIXI.loader.resources["./logo.jpg"].texture)
+        cat3 = new PIXI.Sprite(PIXI.loader.resources["./logo.jpg"].texture)
+        cat4 = new PIXI.Sprite(PIXI.loader.resources["./logo.jpg"].texture)
+        cat5 = new PIXI.Sprite(PIXI.loader.resources["./logo.jpg"].texture)
+
+        cat1.width = 20
+        cat1.height = 20
+        cat2.width = 20
+        cat2.height = 20
+        cat3.width = 20
+        cat3.height = 20
+        cat4.width = 20
+        cat4.height = 20
+        cat5.width = 20
+        cat5.height = 20
+
+        cat1.y = 450
+        cat2.y = 450
+        cat3.y = 450
+        cat4.y = 450
+        cat5.y = 450
+
+        cat1.vx = 5
+        cat1.vy = 0
+        cat2.vx = 5
+        cat2.vy = 0
+        cat3.vx = 5
+        cat3.vy = 0
+        cat4.vx = 5
+        cat4.vy = 0
+        cat5.vx = 5
+        cat5.vy = 0
+
+        app.stage.addChild(cat1)
+        app.stage.addChild(cat2)
+        app.stage.addChild(cat3)
+        app.stage.addChild(cat4)
+        app.stage.addChild(cat5)
+
+        app.ticker.add(function (delta) {
+            gameLoop(delta)
+        })
+    }
+
+    var flag1 = 0.04
+    var flag2 = 0.02
+    var flag3 = 0
+    var flag4 = -0.02
+    var flag5 = -0.04
+    function gameLoop(delta){
+        cat1.x += cat1.vx
+        cat1.y += cat1.vy
+        cat1.vy += flag1
+        if(cat1.vy > 4){
+            flag1 = -flag1
+        }
+
+        cat2.x += cat2.vx
+        cat2.y += cat2.vy
+        cat2.vy += flag2
+        if(cat2.vy > 2){
+            flag2 = -flag2
+        }
+
+        cat3.x += cat3.vx
+        cat3.y += cat3.vy
+        cat3.vy += flag3
+
+        cat4.x += cat4.vx
+        cat4.y += cat4.vy
+        cat4.vy += flag4
+        if(cat4.vy < -2){
+            flag4 = -flag4
+        }
+
+        cat5.x += cat5.vx
+        cat5.y += cat5.vy
+        cat5.vy += flag5
+        if(cat5.vy < -4){
+            flag5 = -flag5
+        }
+
+        if(cat1.vy <= 0){
+            cat1.vx = 0
+            cat1.vy = 0
+            cat2.vx = 0
+            cat2.vy = 0
+            cat3.vx = 0
+            cat3.vy = 0
+            cat4.vx = 0
+            cat4.vy = 0
+            cat5.vx = 0
+            cat5.vy = 0
+        }
+    }
+
+</script>
+</body>
+</html>
